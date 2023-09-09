@@ -64,19 +64,29 @@ public class Player {
             return null;
         }
         System.out.println("Enter the row and column where you want to play the move.");
-        int row = scanner.nextInt();
-        int col = scanner.nextInt();
 
-        // board.getBoard().get(row).get(col) --> get the cell from the board
-        // Update the cell -> board ends up getting updated.
-        Cell cell = new Cell(board.getBoard().get(row).get(col));
-        System.out.printf("The player %s is making a move at cell: %d, %d\n",
-                this.getName(), cell.getRow(), cell.getCol());
-        if (cell.getCellStatus().equals(CellStatus.OCCUPIED)) {
-            throw new IllegalArgumentException("The cell is occupied");
+        int i = 0;
+        while (i < 3) {
+            int row = scanner.nextInt();
+            int col = scanner.nextInt();
+            // board.getBoard().get(row).get(col) --> get the cell from the board
+            // Update the cell -> board ends up getting updated.
+            Cell cell = new Cell(board.getBoard().get(row-1).get(col-1));
+            System.out.printf("The player %s is making a move at cell: %d, %d\n",
+                    this.getName(), cell.getRow()+1, cell.getCol()+1);
+            if (cell.getCellStatus().equals(CellStatus.OCCUPIED)) {
+                System.out.println("This cell is already occupied!!!");
+                System.out.println("Enter the row and column again where you want to play the move.");
+//                throw new IllegalArgumentException("The cell is occupied");
+            } else {
+                cell.setPlayer(this);
+                cell.setCellStatus(CellStatus.OCCUPIED);
+                return new Move(cell);
+            }
+            i++;
         }
-        cell.setPlayer(this);
-        cell.setCellStatus(CellStatus.OCCUPIED);
-        return new Move(cell);
+//        TODO: In case of repeated wrong moves, another player should be declared as winner
+        System.out.printf("The player %s has lost all the chances!!!\n", this.getName());
+        return null;
     }
 }

@@ -7,6 +7,7 @@ import models.Player;
 import services.GameService;
 import strategies.BoardService;
 import strategies.winningstrategies.ColWinningStrategy;
+import strategies.winningstrategies.DiagonalWinningStrategy;
 import strategies.winningstrategies.RowWinningStrategy;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class GameController {
                 .setPlayers(playerList)
                 .addWinningStrategy(new ColWinningStrategy())
                 .addWinningStrategy(new RowWinningStrategy())
+                .addWinningStrategy(new DiagonalWinningStrategy())
                 .setDimension(dimension)
                 .build();
     }

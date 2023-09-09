@@ -23,7 +23,7 @@ public class Bot extends Player {
         if (move == null) {
             return null;
         }
-        System.out.printf("The bot is making a move %d %d.\n", move.getCell().getRow(), move.getCell().getCol());
+        System.out.printf("The bot is making a move %d %d.\n", move.getCell().getRow()+1, move.getCell().getCol()+1);
         move.getCell().setPlayer(this);
         move.getCell().setCellStatus(CellStatus.OCCUPIED);
         return move;
