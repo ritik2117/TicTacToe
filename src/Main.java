@@ -55,7 +55,14 @@ public class Main {
             while (gameController.getGameStatus(game).equals(GameState.IN_PROGRESS)) {
                 System.out.println("This is the current board: ");
                 gameController.displayBoard(game);
-//            TODO: Add undo check here.
+//             Added undo check here.
+                System.out.println("Do you want to undo your move? y/n");
+                char doUndo = sc.next().charAt(0);
+                if (doUndo == 'y') {
+                    gameController.undoLastMove(game);
+                    gameController.displayBoard(game);
+                }
+
                 gameController.executeNextMove(game);
             }
 
@@ -69,6 +76,5 @@ public class Main {
             System.out.println("Do you want to play again? (y/n)");
             choice = sc.next().charAt(0);
         } while (choice == 'y');
-        return;
     }
 }

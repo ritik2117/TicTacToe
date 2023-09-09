@@ -91,8 +91,16 @@ public class Game {
         return players.get(currentPlayerIndex);
     }
 
+    public List<Move> getMoves() {
+        return moves;
+    }
+
     public void addMove(Move move) {
         moves.add(move);
+    }
+
+    public Move removeLastMove() {
+        return moves.remove(moves.size() - 1);
     }
 
     public List<WinningStrategy> getWinningStrategies() {
@@ -111,9 +119,22 @@ public class Game {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
 
+    public void previousPlayerTurn() {
+        currentPlayerIndex -= 1;
+        if (currentPlayerIndex < 0) {
+            currentPlayerIndex = players.size()-1;
+        }
+    }
+
     public void updateBoard(Move move) {
         int row = move.getCell().getRow();
         int col = move.getCell().getCol();
         this.board.getBoard().get(row).set(col, move.getCell());
+    }
+
+    public void updateBoardAfterUndo(Move move) {
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+        this.board.getBoard().get(row).set(col, new Cell(row, col));
     }
 }

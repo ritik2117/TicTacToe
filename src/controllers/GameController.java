@@ -46,4 +46,9 @@ public class GameController {
     public String getWinner(Game game) {
         return game.getWinner().getName();
     }
+
+    public void undoLastMove(Game game) {
+        GameService gameService = new GameService(game);
+        gameService.undoLastMove(game);
+    }
 }

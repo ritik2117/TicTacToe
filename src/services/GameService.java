@@ -3,6 +3,8 @@ package services;
 import models.*;
 import strategies.winningstrategies.WinningStrategy;
 
+import java.util.List;
+
 public class GameService {
     private Game game;
 
@@ -31,5 +33,19 @@ public class GameService {
             }
         }
         game.nextPlayerTurn();
+    }
+
+    public void undoLastMove(Game game) {
+        System.out.println("Undoing last move");
+        List<Move> moves = game.getMoves();
+
+        if (moves.isEmpty()) {
+            System.out.println("No moves are there for undo");
+            return;
+        }
+
+        Move move = game.removeLastMove();
+        game.updateBoardAfterUndo(move);
+        game.previousPlayerTurn();
     }
 }
